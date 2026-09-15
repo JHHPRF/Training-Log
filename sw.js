@@ -1,4 +1,4 @@
-const CACHE = "tlog-v1";
+const CACHE = "tlog-v2";
 const CORE = ["./", "index.html", "manifest.json", "icon-192.png", "icon-512.png", "icon-splash-512.png"];
 
 self.addEventListener("install", e => {
