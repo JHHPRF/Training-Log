@@ -478,6 +478,27 @@ function navToPlans(){
 function navBack(){ history.back(); }
 window.addEventListener("popstate", e=>{ applySnapshot(e.state); render(); });
 
+// Called by the Android wrapper for the system Back gesture/button.
+// Return true when the web app handled Back internally; false means Android may exit.
+window.trainingLogHandleAndroidBack = function(){
+  if(state.graphFor || state.linkedFor || state.editingHistory || state.editingToday){
+    clearTransient();
+    replaceNav();
+    render();
+    return true;
+  }
+  if(state.view==="workout" || state.view==="plans"){
+    state.view="home";
+    state.workoutId=null;
+    state.expanded.clear();
+    clearTransient();
+    replaceNav();
+    render();
+    return true;
+  }
+  return false;
+};
+
 function render(){
   save();
   if(state.view==="home") renderHome();
